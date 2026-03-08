@@ -30,6 +30,7 @@ add_shortcode('exercise-2-wrapper', 'exercise_2_wrapper_shortcode');
 function exercise_2_item_shortcode($atts, $content = null) {
     $atts = shortcode_atts([
         'url'          => '',
+        'poster'       => '',
         'title'        => '',
         'title-tag'    => 'h2',
         'subtitle'     => '',
@@ -42,6 +43,15 @@ function exercise_2_item_shortcode($atts, $content = null) {
     }
 
     $url = esc_url($atts['url']);
+    // Add parameters to hide Vimeo controls
+    $separator = (strpos($url, '?') !== false) ? '&' : '?';
+    $embed_url = $url . $separator . 'background=1&autoplay=1&loop=0&byline=0&title=0&controls=0';
+
+    // Get poster image
+    $poster_url = '';
+    if ($atts['poster']) {
+        $poster_url = wp_get_attachment_url((int) $atts['poster']);
+    }
 
     ob_start(); ?>
     <div class="exercise-2__item <?= esc_attr($atts['class']) ?>">
@@ -58,13 +68,18 @@ function exercise_2_item_shortcode($atts, $content = null) {
             </<?= esc_html($atts['title-tag']) ?>>
         <?php endif; ?>
 
-        <div class="exercise-2__video">
-            <iframe
-                src="<?= $url ?>"
-                frameborder="0"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowfullscreen>
-            </iframe>
+        <div class="exercise-2__video" data-video-url="<?= esc_attr($embed_url) ?>">
+            <?php if ($poster_url): ?>
+                <img class="exercise-2__poster" src="<?= esc_url($poster_url) ?>" alt="">
+            <?php else: ?>
+                <div class="exercise-2__poster exercise-2__poster--placeholder"></div>
+            <?php endif; ?>
+            <button class="exercise-2__play" type="button" aria-label="Play video">
+                <svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="64" height="48" rx="8" fill="#0D2141"/>
+                    <polygon points="26,14 26,34 44,24" fill="#FFFFFF"/>
+                </svg>
+            </button>
         </div>
 
     </div>

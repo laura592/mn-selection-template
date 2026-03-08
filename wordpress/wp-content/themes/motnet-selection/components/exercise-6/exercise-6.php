@@ -72,21 +72,44 @@ function exercise_6_item_shortcode($atts, $content = null) {
     $atts = shortcode_atts([
         'class'     => '',
         'image-id'  => '',
+        'image-ids' => '',
         'subtitle'  => '',
         'title'     => '',
         'link'      => '',
         'link-text' => '',
     ], $atts);
 
-    if (!$atts['image-id'] || trim($content) === '') return '';
+    if (trim($content) === '') return '';
 
-    $img = wp_get_attachment_url($atts['image-id']);
-    if (!$img) return '';
+    // Collect image IDs: support both single image-id and multiple image-ids
+    $ids = [];
+    if ($atts['image-ids']) {
+        $ids = array_filter(array_map('trim', explode(',', $atts['image-ids'])));
+    } elseif ($atts['image-id']) {
+        $ids = [$atts['image-id']];
+    }
+    if (empty($ids)) return '';
+
+    $is_slider = count($ids) > 1;
 
     ob_start(); ?>
     <article class="exercise-6__item <?= esc_attr($atts['class']) ?>">
-        <div class="exercise-6__item-media">
-            <img src="<?= esc_url($img) ?>" alt="">
+        <div class="exercise-6__item-media<?= $is_slider ? ' exercise-6__slider' : '' ?>"<?= $is_slider ? ' data-ex6-slider' : '' ?>>
+            <?php foreach ($ids as $id): ?>
+                <?php $img = wp_get_attachment_url((int)$id); if (!$img) continue; ?>
+                <div class="exercise-6__slide">
+                    <img src="<?= esc_url($img) ?>" alt="">
+                </div>
+            <?php endforeach; ?>
+
+            <?php if ($is_slider): ?>
+                <button class="exercise-6__arrow exercise-6__arrow--prev" type="button" aria-label="Previous">
+                    <svg viewBox="0 0 12.324 21.82" xmlns="http://www.w3.org/2000/svg"><g transform="translate(10.91 20.406) rotate(180)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"><line x2="9.496" y1="9.496"/><line transform="translate(0 9.496)" x2="9.496" y2="9.496"/></g></svg>
+                </button>
+                <button class="exercise-6__arrow exercise-6__arrow--next" type="button" aria-label="Next">
+                    <svg viewBox="0 0 12.324 21.82" xmlns="http://www.w3.org/2000/svg"><g transform="translate(10.91 20.406) rotate(180)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"><line x2="9.496" y1="9.496"/><line transform="translate(0 9.496)" x2="9.496" y2="9.496"/></g></svg>
+                </button>
+            <?php endif; ?>
         </div>
 
         <div class="exercise-6__item-content">

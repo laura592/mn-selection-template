@@ -1,40 +1,102 @@
+/* ==========================================================================
+   EXERCISE 1 — HERO SECTION
+   ========================================================================== */
+
 .exercise-1 {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 5px solid gray;
+  min-height: 500px;
+  overflow: hidden;
 }
 
-/* .exercise-1__background-image::after, */
+/* Background image */
+.exercise-1__background-image {
+  position: absolute;
+  inset: 0;
+}
+
 .exercise-1__background-image img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-}
-
-/* .exercise-1__background-image::after {
-  content: "";
-  background-color: hsla(0, 0%, 0%, 0.4);
-} */
-
-.exercise-1__background-image img {
   object-fit: cover;
 }
 
+/* Content — centered overlay strip */
 .exercise-1__container {
+  position: relative;
+  z-index: 2;
   max-width: var(--container-width);
+  width: 100%;
+  padding-inline: var(--space-1);
+  background: rgba(0, 0, 0, 0.48);
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .exercise-1__wrapper {
-  position: relative;
-  z-index: 1;
   text-align: center;
+  max-width: 1056px;
+  margin: 0 auto;
+  padding: var(--space-5) 0;
 }
 
+/* Title — 54px Poppins 700 white with shadow */
 .exercise-1__title {
-  display: inline-block;
-  width: 100%;
+  display: block;
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 54px;
+  font-weight: 700;
+  line-height: 64px;
+  text-shadow: 0px 0px 16px rgba(0, 0, 0, 0.32);
+  margin-bottom: var(--space-1);
+}
+
+/* Text — 32px Work Sans lime */
+.exercise-1__text {
+  color: var(--color-lime);
+  font-family: var(--font-body);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.exercise-1__text p {
+  margin: 0;
+}
+
+/* Button hidden in this design */
+.exercise-1__button {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .exercise-1 {
+    min-height: 350px;
+  }
+
+  .exercise-1__container {
+    min-height: 350px;
+  }
+
+  .exercise-1__title {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .exercise-1__text {
+    font-size: 22px;
+  }
+
+  .exercise-1__wrapper {
+    padding: var(--space-3) 0;
+  }
 }
 

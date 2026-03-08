@@ -76,7 +76,9 @@ function exercise_4_item_shortcode($atts, $content = null) {
 
         <!-- Body -->
         <div class="exercise-4__item-body mcy-0">
-            <?= do_shortcode($content) ?>
+            <div class="exercise-4__item-body-inner">
+                <?= do_shortcode($content) ?>
+            </div>
         </div>
 
     </div>

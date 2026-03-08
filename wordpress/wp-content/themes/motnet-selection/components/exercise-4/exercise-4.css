@@ -1,26 +1,131 @@
+/* ==========================================================================
+   EXERCISE 4 — ACCORDION
+   ========================================================================== */
+
 .exercise-4 {
-    border: 5px solid gray;
+  padding: var(--space-5) 0;
+  background-color: var(--color-white);
+}
+
+.exercise-4__container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding-inline: var(--space-1);
 }
 
 .exercise-4__wrapper {
   display: grid;
+  gap: var(--space-1);
 }
 
+/* Item — rounded card with border */
+.exercise-4__item {
+  border: 2px solid var(--color-navy-dark);
+  border-radius: var(--radius-button);
+  overflow: hidden;
+  transition: var(--transition-base);
+}
+
+/* Header (trigger) */
 .exercise-4__item-header {
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-1);
+  padding: 0 var(--space-1);
+  min-height: 56px;
+  user-select: none;
+  transition: background-color var(--transition-base);
 }
 
-.exercise-4__item-toggle-button {
-  transition: transform .3s ease;
-}
-
-.exercise-4__item-body {
+/* When open, the + becomes a - (horizontal line only via CSS) */
+.exercise-4__item--open .exercise-4__item-toggle-button svg line:first-child {
   display: none;
 }
 
+.exercise-4__item-title {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 27px;
+  color: var(--color-navy);
+  margin: 0;
+  transition: color var(--transition-base);
+}
+
+/* Toggle icon — navy square, 8px radius */
+.exercise-4__item-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--color-navy);
+  border-radius: var(--radius-small);
+  color: var(--color-white);
+  transition: background-color var(--transition-base),
+              transform var(--transition-base);
+}
+
+.exercise-4__item-toggle-button svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Open state — navy header, lime toggle with black icon, NO rotation */
+.exercise-4__item--open .exercise-4__item-header {
+  background-color: var(--color-navy);
+  border-radius: 0 0 var(--radius-button) var(--radius-button);
+}
+
+.exercise-4__item--open .exercise-4__item-title {
+  color: var(--color-white);
+}
+
+.exercise-4__item--open .exercise-4__item-toggle-button {
+  background: var(--color-lime);
+  color: var(--color-black);
+}
+
+/* Body (content) */
+.exercise-4__item-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-base);
+}
+
+.exercise-4__item-body > * {
+  overflow: hidden;
+}
+
 .exercise-4__item--open .exercise-4__item-body {
-  display: block;
+  grid-template-rows: 1fr;
+}
+
+.exercise-4__item-body p {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 27px;
+  color: var(--color-gray);
+  padding: var(--space-1half) var(--space-1);
+  margin: 0;
+}
+
+.exercise-4__item-body-inner {
+  overflow: hidden;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .exercise-4 {
+    padding: var(--space-3) 0;
+  }
+}
+
+@media (max-width: 479px) {
+  .exercise-4 {
+    padding: var(--space-1half) 0;
+  }
 }

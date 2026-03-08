@@ -1,62 +1,140 @@
-/* GRID */
+/* ==========================================================================
+   EXERCISE 5 — IMAGE GRID + INFO PANEL
+   ========================================================================== */
+
 .exercise-5 {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-half);
+  padding: var(--space-5) var(--space-1);
+  max-width: var(--container-width);
+  margin: 0 auto;
 }
 
 .exercise-5__item {
-  cursor: pointer;
+  overflow: hidden;
+  border-radius: var(--radius-card);
 }
 
-.exercise-5__item img {
+/* Image wrapper — holds image + expand button */
+.exercise-5__image-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+
+.exercise-5__image-wrap img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   display: block;
+  aspect-ratio: 632 / 470;
+  transition: transform var(--transition-base);
 }
 
+.exercise-5__image-wrap:hover img {
+  transform: scale(1.04);
+}
 
-/* LIGHTBOX */
-.exercise-5__lightbox {
-  position: fixed;
+/* Dark overlay on hover */
+.exercise-5__image-wrap::before {
+  content: "";
+  position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.9);
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.32);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.exercise-5__image-wrap:hover::before {
+  opacity: 1;
+}
+
+/* Expand button (+ icon) — centered */
+.exercise-5__expand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 58px;
+  height: 58px;
+  background-color: var(--color-navy);
+  border-radius: var(--radius-small);
+  border: none;
+  z-index: 2;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  transition: background-color var(--transition-base);
+  padding: 0;
 }
 
-/* stato chiuso forzato */
-.exercise-5__lightbox[hidden] {
-  display: none !important;
+.exercise-5__expand:hover {
+  background-color: var(--color-lime);
 }
 
-.exercise-5__lightbox-image {
-  max-width: 90vw;
-  max-height: 90vh;
+.exercise-5__expand:hover svg line {
+  stroke: var(--color-navy);
 }
 
-.exercise-5__close,
-.exercise-5__nav {
-  position: fixed;
-  background: none;
-  border: 0;
-  color: #fff;
-  font-size: 2.5rem;
-  cursor: pointer;
+/* Open state — keep button visible */
+.exercise-5__item.is-open .exercise-5__expand {
+  opacity: 1;
 }
 
-.exercise-5__close {
-  top: 1rem;
-  right: 1.5rem;
+/* Info panel (below image) */
+.exercise-5__info {
+  padding: var(--space-1) var(--space-half);
+  background: var(--color-navy);
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
 }
 
-.exercise-5__nav.prev {
-  left: 1.5rem;
+.exercise-5__info[hidden] {
+  display: none;
 }
 
-.exercise-5__nav.next {
-  right: 1.5rem;
+.exercise-5__info-title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-white);
+  margin: 0 0 4px;
+}
+
+.exercise-5__info-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-white);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* When info is open, remove bottom radius from image wrap */
+.exercise-5__item.is-open .exercise-5__image-wrap {
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+
+/* Responsive grid */
+@media (max-width: 991px) {
+  .exercise-5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .exercise-5 {
+    grid-template-columns: repeat(2, 1fr);
+    padding: var(--space-3) var(--space-1);
+  }
+}
+
+@media (max-width: 479px) {
+  .exercise-5 {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-half);
+  }
 }

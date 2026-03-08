@@ -87,8 +87,12 @@ function exercise_3_item_shortcode($atts, $content = null) {
             <?php endforeach; ?>
 
             <?php if (count($ids) > 1): ?>
-                <button class="nav prev" type="button" aria-label="Previous"></button>
-                <button class="nav next" type="button" aria-label="Next"></button>
+                <button class="nav prev" type="button" aria-label="Previous">
+                    <svg viewBox="0 0 12.324 21.82" xmlns="http://www.w3.org/2000/svg"><g transform="translate(10.91 20.406) rotate(180)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"><line x2="9.496" y1="9.496"/><line transform="translate(0 9.496)" x2="9.496" y2="9.496"/></g></svg>
+                </button>
+                <button class="nav next" type="button" aria-label="Next">
+                    <svg viewBox="0 0 12.324 21.82" xmlns="http://www.w3.org/2000/svg"><g transform="translate(10.91 20.406) rotate(180)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"><line x2="9.496" y1="9.496"/><line transform="translate(0 9.496)" x2="9.496" y2="9.496"/></g></svg>
+                </button>
                 <div class="dots"></div>
             <?php endif; ?>
         </div>

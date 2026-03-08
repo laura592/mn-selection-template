@@ -1,12 +1,39 @@
 :root {
 
-    --color-white: #ffffff;
+    /* Colors — from Figma layout */
+    --color-white: #FFFFFF;
     --color-black: #000000;
+    --color-navy: #0D2141;
+    --color-navy-dark: #0A1A32;
+    --color-text: #121212;
+    --color-gray: #707070;
+    --color-lime: #D3DD00;
+    --color-neutral-dark: #191818;
+    --color-neutral-light: #FBFAF9;
 
-    --spacing-small: 0.5rem;
-    --spacing-medium: 1rem;
-    --spacing-large: 2rem;
+    /* Spacing */
+    --space-half: 8px;
+    --space-1: 16px;
+    --space-1half: 24px;
+    --space-2: 32px;
+    --space-3: 48px;
+    --space-4: 64px;
+    --space-5: 80px;
+    --space-6: 96px;
 
-    --container-width: 1200px;
+    /* Layout */
+    --container-width: 1280px;
+    --radius-button: 16px;
+    --radius-card: 24px;
+    --radius-image: 24px;
+    --radius-small: 8px;
+
+    /* Fonts */
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Work Sans', sans-serif;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s;
 
 }
